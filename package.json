@@ -1,0 +1,26 @@
+{
+  "name": "e-commerce",
+  "version": "1.0.0",
+  "description": "\"# E-Commerce\"",
+  "homepage": "https://github.com/kumaryashseth/E-Commerce#readme",
+  "bugs": {
+    "url": "https://github.com/kumaryashseth/E-Commerce/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kumaryashseth/E-Commerce.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.0",
+    "express": "^5.2.1",
+    "mongoose": "^9.4.1"
+  }
+}
