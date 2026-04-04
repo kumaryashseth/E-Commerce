@@ -1,21 +1,25 @@
 import express from "express";
-import mongoose from 'mongoose'
 import dotenv from "dotenv";
+import db from "./config/db.js";
 
+dotenv.config();
 
+// connect database
+db();
 
+const app = express();
 
-dotenv.config()
-const app=express()
+// middleware (good practice)
+app.use(express.json());
 
+app.get("/", (req, res) => {
+  return res.json({ message: "Hello" });
+});
 
+// ❌ wrong: 8000 || process.env.PORT
+// ✅ correct:
+const PORT = process.env.PORT || 8000;
 
-
-
-
-
-const PORT=8000 || process.env.PORT
-app.listen(PORT,(req,res)=>{
-    console.log(`Server started at ${PORT}`);
-    
-})
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+});
