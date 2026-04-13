@@ -1,27 +1,34 @@
 import React, { useState } from "react";
 import Layout from "../../components/Layout";
 import axios from "axios";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+
+
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [address, setAddress] = useState("");
 
-
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(name, email, password);
+    console.log(name, email, password, address);
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/register`,
-        { name, email, password },
+        {
+          name,
+          email,
+          password,
+          address
+        }
       );
       if (res.data.success) {
         toast.success(res.data.message);
-        navigate('/login');
+        navigate("/login");
       } else {
         toast.error(res.data.message);
       }
@@ -42,7 +49,6 @@ const Register = () => {
               Name
             </label>
             <div id="NameHelp" className="form-text">
-              We'll never share your Name with anyone else.
             </div>
             <input
               type="name"
@@ -80,6 +86,18 @@ const Register = () => {
               required
             />
           </div>
+          <label htmlFor="exampleInputemail1" className="form-label">
+            Address
+          </label>
+          <input
+            type="address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            className="form-control"
+            id="exampleInputemail1"
+            required
+          />
+          <br />
 
           <button type="submit" className="btn btn-primary">
             Submit
