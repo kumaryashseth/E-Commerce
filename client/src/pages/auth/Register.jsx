@@ -9,13 +9,13 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [address, setAddress] = useState("");
+  const [answer, setAnswer] = useState("");
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(name, email, password, address);
+    console.log(name, email, password);
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/register`,
@@ -23,7 +23,7 @@ const Register = () => {
           name,
           email,
           password,
-          address
+          answer
         }
       );
       if (res.data.success) {
@@ -87,14 +87,15 @@ const Register = () => {
             />
           </div>
           <label htmlFor="exampleInputemail1" className="form-label">
-            Address
+            Answer
           </label>
           <input
             type="address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
+            value={answer}
+            onChange={(e) => setAnswer(e.target.value)}
             className="form-control"
             id="exampleInputemail1"
+            placeholder="What is your Favourate sports"
             required
           />
           <br />

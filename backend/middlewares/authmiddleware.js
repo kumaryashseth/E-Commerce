@@ -3,6 +3,7 @@ import userModel from '../models/userModel.js'
 
 export const requireSignIn = async (req, res, next) => {
   try {
+    console.log("HEADER:", req.headers.authorization);
     const authHeader = req.headers.authorization || req.headers.Authorization
     if (!authHeader) {
       return res.status(401).json({ success: false, message: 'Authorization header missing' })

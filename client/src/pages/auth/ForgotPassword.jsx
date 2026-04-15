@@ -3,12 +3,12 @@ import Layout from "../../components/Layout";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
 
-const Login = () => {
+const ForgotPassword = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [auth, setAuth] = useAuth();
+  const [newPassword, setNewPassword] = useState("");
+  const [answer, setAnswer] = useState("");
+
 
   const navigate = useNavigate();
 
@@ -16,28 +16,19 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/login`, {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/forgot-password`,
+        {
+          email,
+          newPassword,
+          answer,
+        },
+      );
 
       if (res.data.success) {
         toast.success(res.data.message);
 
-        setAuth({
-          user: res.data.user,
-          token: res.data.token,
-        });
-
-        localStorage.setItem(
-          "auth",
-          JSON.stringify({
-            user: res.data.user,
-            token: res.data.token,
-          }),
-        );
-
-        navigate("/");
+        navigate("/login");
       } else {
         toast.error(res.data.message);
       }
@@ -46,10 +37,9 @@ const Login = () => {
       toast.error("Something went wrong");
     }
   };
-
   return (
     <Layout>
-      <h1>Login Page</h1>
+      <h1>Forgot Password Reset</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
@@ -58,21 +48,24 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
+          type="text"
+          placeholder="Your Answer favorite sports"
+          value={answer}
+          onChange={(e) => setAnswer(e.target.value)}
+        />
+        <input
           type="password"
-          placeholder="Enter password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Enter new  password"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
         />
         <br />
-        <button type="submit" onClick={() => navigate("/forgot-password")}>
-          Forgot Password
-        </button>
         <br />
 
-        <button type="submit">Login</button>
+        <button type="submit">Reset</button>
       </form>
     </Layout>
   );
 };
 
-export default Login;
+export default ForgotPassword;
